@@ -9,6 +9,7 @@ import formatMoney from "../lib/formatMoney";
 const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM_MUTATION($data: createItemInput) {
     createItem(data: $data) {
+      id
       title
       description
       image
@@ -77,7 +78,7 @@ class CreateItem extends Component {
                 console.log(res);
                 Router.push({
                   pathname: "/item",
-                  query: res.data.createItem.id
+                  query: { id: res.data.createItem.id }
                 });
               }}
             >
@@ -85,7 +86,7 @@ class CreateItem extends Component {
               <Error error={error} />
               <fieldset
                 disabled={loading && this.state.imageLoading}
-                aria-busy={loading}
+                aria-busy={loading && this.state.imageLoading}
               >
                 <label htmlFor="file">
                   Image

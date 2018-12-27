@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import styled from "styled-components";
-
+import Pagination from "./Pagination";
+import { perPage } from "../config";
 import Item from "./Item";
 
 const Centered = styled.div`
@@ -16,10 +17,9 @@ const ItemsList = styled.div`
   grid-gap: 60px;
   max-width: ${props => props.theme.maxWidth};
 `;
-
 const ALL_ITEMS_QUERY = gql`
-  query ALL_ITEMS_QUERY {
-    items {
+  query ALL_ITEMS_QUERY($skip: Int = 0, $first: Int = ${perPage} ) {
+    items(skip: $skip, first: $first, orderBy: createdAt_DESC) {
       id
       price
       title
@@ -34,7 +34,14 @@ class Items extends Component {
   render() {
     return (
       <Centered>
-        <Query query={ALL_ITEMS_QUERY}>
+        <Pagination page={this.props.page} />
+        <Query
+          query={ALL_ITEMS_QUERY}
+          variables={{
+            skip: this.props.page * perPage - perPage,
+            first: perPage
+          }}
+        >
           {({ loading, error, data }) => {
             if (loading) {
               return <p>Loading</p>;
@@ -52,6 +59,7 @@ class Items extends Component {
             );
           }}
         </Query>
+        <Pagination page={this.props.page} />
       </Centered>
     );
   }
