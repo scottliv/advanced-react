@@ -46,22 +46,31 @@ class CreateItem extends Component {
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
     const files = e.target.files;
     const formData = new FormData();
-    formData.append("file", files[0]);
-    formData.append("upload_preset", "sickfits");
-    const res = await fetch(url, {
-      method: "POST",
-      body: formData
-    });
-    const file = await res.json();
-    this.setState({
-      ...this.state,
-      createItemInput: {
-        ...this.state.createItemInput,
-        image: file.secure_url,
-        largeImage: file.eager[0].secure_url
-      },
-      imageLoading: false
-    });
+
+    if (files.length) {
+      formData.append("file", files[0]);
+      formData.append("upload_preset", "sickfits");
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          body: formData
+        });
+        const file = await res.json();
+        this.setState({
+          ...this.state,
+          createItemInput: {
+            ...this.state.createItemInput,
+            image: file.secure_url,
+            largeImage: file.eager[0].secure_url
+          },
+          imageLoading: false
+        });
+      } catch {
+        throw new Error("There was a problem updloading your image");
+      }
+    } else {
+      this.setState({ createItemInput: { image: "" } });
+    }
   };
   render() {
     return (
