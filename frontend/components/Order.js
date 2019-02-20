@@ -42,9 +42,8 @@ class Order extends Component {
           if (error) return <Error error={error} />;
           if (loading) return <p>Loading...</p>;
           const order = data.data.order;
-          console.log(order);
           return (
-            <OrderStyles>
+            <OrderStyles data-test="order">
               <Head>
                 <title>Sick Fits Order: {order && order.id}</title>
               </Head>
@@ -54,7 +53,7 @@ class Order extends Component {
               </p>
               <p>
                 <span>Charge</span>
-                <span>{order.charge}</span>
+                <span>{order && order.charge}</span>
               </p>
 
               <p>
@@ -69,12 +68,13 @@ class Order extends Component {
               </p>
               <p>
                 <span>Item Count:</span>
-                <span>{order.items.length}</span>
+                <span>{order && order.items.length}</span>
               </p>
               <div className="items">
-                {order.items.map(item => (
-                  <OrderItem item={item} key={item.id} />
-                ))}
+                {order &&
+                  order.items.map(item => (
+                    <OrderItem item={item} key={item.id} />
+                  ))}
               </div>
             </OrderStyles>
           );
@@ -85,3 +85,4 @@ class Order extends Component {
 }
 
 export default Order;
+export { SINGLE_ORDER_QUERY };

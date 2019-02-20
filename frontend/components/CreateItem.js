@@ -81,10 +81,11 @@ class CreateItem extends Component {
         {(createItem, { error, loading }) => {
           return (
             <Form
+              data-test="form"
               onSubmit={async e => {
                 e.preventDefault();
                 const res = await createItem();
-                console.log(res);
+
                 Router.push({
                   pathname: "/item",
                   query: { id: res.data.createItem.id }

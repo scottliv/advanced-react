@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RemoveFromCart/> renders and matches snapshot 1`] = `
+Array [
+  <RemoveFromCart__BigButton
+    data-test="button"
+    disabled={false}
+    onClick={[Function]}
+    title="Delete Item"
+  >
+    <button
+      className="RemoveFromCart__BigButton-emvtd6-0 eCcYeN"
+      data-test="button"
+      disabled={false}
+      onClick={[Function]}
+      title="Delete Item"
+    >
+      ×
+    </button>
+  </RemoveFromCart__BigButton>,
+  <button
+    className="RemoveFromCart__BigButton-emvtd6-0 eCcYeN"
+    data-test="button"
+    disabled={false}
+    onClick={[Function]}
+    title="Delete Item"
+  >
+    ×
+  </button>,
+]
+`;

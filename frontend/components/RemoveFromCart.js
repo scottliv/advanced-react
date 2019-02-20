@@ -47,6 +47,7 @@ const RemoveFromCart = id => (
         disabled={loading}
         onClick={removeFromCart}
         title="Delete Item"
+        data-test="button"
       >
         &times;
       </BigButton>
@@ -59,3 +60,4 @@ RemoveFromCart.propTypes = {
 };
 
 export default RemoveFromCart;
+export { REMOVE_FROM_CART_MUTATION };
