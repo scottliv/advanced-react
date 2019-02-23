@@ -5,6 +5,7 @@ const createServer = require("./createServer");
 const db = require("./db");
 const server = createServer();
 
+// Start
 server.express.use(cookieParser());
 
 // Add user Id to each request
